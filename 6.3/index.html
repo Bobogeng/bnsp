@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Validasi Form</title>
+        <style>
+            /* Reset */
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                background-color: #f4f4f4;
+            }
+            .container {
+                max-width: 400px;
+                margin: 0 auto;
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            input,
+            button {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 10px;
+                font-size: 16px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+            }
+            button {
+                background-color: #0056b3;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: #003d80;
+            }
+            .error {
+                color: red;
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+            .success {
+                color: green;
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Validasi Form</h1>
+            <form id="form">
+                <input type="text" id="email" placeholder="Masukkan Email" />
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Masukkan Password"
+                />
+                <div id="messages" class="error"></div>
+                <button type="button" id="validateButton">Validasi</button>
+            </form>
+        </div>
+
+        <script src="./dist/bundle.js"></script>
+        <script>
+            document
+                .getElementById("validateButton")
+                .addEventListener("click", () => {
+                    const email = document.getElementById("email").value;
+                    const password = document.getElementById("password").value;
+                    const messages = document.getElementById("messages");
+
+                    // Panggil fungsi validasi dari modul
+                    ValidationProgram.validateForm(
+                        { email, password },
+                        (message, isValid) => {
+                            messages.textContent = message;
+                            messages.className = isValid ? "success" : "error";
+                        }
+                    );
+                });
+        </script>
+    </body>
+</html>

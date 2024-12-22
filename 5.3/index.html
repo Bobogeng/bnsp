@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Program Prosedur dan Fungsi</title>
+        <style>
+            /* Reset */
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                background-color: #f4f4f4;
+                color: #333;
+            }
+
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            h1 {
+                text-align: center;
+                color: #0056b3;
+            }
+
+            label {
+                font-weight: bold;
+                display: block;
+                margin-top: 10px;
+            }
+
+            input,
+            button {
+                width: 100%;
+                padding: 10px;
+                margin-top: 5px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                font-size: 16px;
+            }
+
+            button {
+                background-color: #0056b3;
+                color: white;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            button:hover {
+                background-color: #003d80;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            ul li {
+                background: #f1f1f1;
+                padding: 10px;
+                border-radius: 5px;
+                margin-bottom: 10px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            h3 {
+                text-align: center;
+                margin-top: 20px;
+                color: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Perhitungan Rata-Rata Nilai</h1>
+            <div>
+                <label for="scoresInput"
+                    >Masukkan Nilai (Pisahkan dengan koma):</label
+                >
+                <input
+                    type="text"
+                    id="scoresInput"
+                    placeholder="Contoh: 80, 90, 75"
+                />
+                <button onclick="processScores()">Hitung Rata-Rata</button>
+            </div>
+            <div id="output" style="margin-top: 20px"></div>
+        </div>
+
+        <script>
+            // Fungsi untuk menghitung rata-rata dari array nilai
+            function calculateAverage(scores) {
+                const total = scores.reduce((sum, score) => sum + score, 0); // Jumlahkan semua nilai
+                return total / scores.length; // Kembalikan rata-rata
+            }
+
+            // Fungsi untuk menentukan kategori berdasarkan rata-rata nilai
+            function determineCategory(average) {
+                if (average >= 85) {
+                    return "Sangat Baik";
+                } else if (average >= 70) {
+                    return "Baik";
+                } else if (average >= 50) {
+                    return "Cukup";
+                } else {
+                    return "Kurang";
+                }
+            }
+
+            // Prosedur untuk memproses input nilai, menghitung rata-rata, dan menampilkan hasil
+            function processScores() {
+                const input = document.getElementById("scoresInput").value;
+
+                // Validasi input
+                if (!input.trim()) {
+                    alert("Masukkan nilai terlebih dahulu!");
+                    return;
+                }
+
+                // Konversi input string menjadi array angka
+                const scores = input.split(",").map(Number);
+
+                // Validasi angka
+                if (scores.some(isNaN)) {
+                    alert("Harap masukkan nilai yang valid (angka saja)!");
+                    return;
+                }
+
+                // Menghitung rata-rata
+                const average = calculateAverage(scores);
+
+                // Menentukan kategori
+                const category = determineCategory(average);
+
+                // Menampilkan hasil
+                displayResult(scores, average, category);
+            }
+
+            // Prosedur untuk menampilkan hasil di layar
+            function displayResult(scores, average, category) {
+                const outputDiv = document.getElementById("output");
+                outputDiv.innerHTML = `
+                <h3>Hasil Perhitungan:</h3>
+                <ul>
+                    <li><strong>Nilai:</strong> ${scores.join(", ")}</li>
+                    <li><strong>Rata-rata:</strong> ${average.toFixed(2)}</li>
+                    <li><strong>Kategori:</strong> ${category}</li>
+                </ul>
+            `;
+            }
+        </script>
+    </body>
+</html>

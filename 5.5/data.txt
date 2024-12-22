@@ -1,0 +1,3 @@
+Nama: John Doe
+Umur: 30 Tahun
+Pekerjaan: Developer

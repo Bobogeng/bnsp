@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Program Sederhana - Daftar Peserta</title>
+        <style>
+            /* Reset */
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                background-color: #f4f4f4;
+                color: #333;
+            }
+
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            h1 {
+                text-align: center;
+                color: #0056b3;
+            }
+
+            label {
+                font-weight: bold;
+                display: block;
+                margin-top: 10px;
+            }
+
+            input,
+            button {
+                width: 100%;
+                padding: 10px;
+                margin-top: 5px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                font-size: 16px;
+            }
+
+            button {
+                background-color: #0056b3;
+                color: white;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            button:hover {
+                background-color: #003d80;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            ul li {
+                background: #f1f1f1;
+                padding: 10px;
+                border-radius: 5px;
+                margin-bottom: 10px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Daftar Peserta</h1>
+            <div>
+                <label for="participantName">Nama Peserta:</label>
+                <input
+                    type="text"
+                    id="participantName"
+                    placeholder="Masukkan nama peserta"
+                />
+                <label for="participantAge">Umur Peserta:</label>
+                <input
+                    type="number"
+                    id="participantAge"
+                    placeholder="Masukkan umur peserta"
+                />
+                <button onclick="addParticipant()">Tambahkan Peserta</button>
+            </div>
+            <div>
+                <h2>Daftar Peserta:</h2>
+                <ul id="participantList"></ul>
+            </div>
+        </div>
+
+        <script>
+            // Array untuk menyimpan daftar peserta
+            const participants = [];
+
+            // Fungsi untuk menambahkan peserta
+            function addParticipant() {
+                const name = document.getElementById("participantName").value;
+                const age = parseInt(
+                    document.getElementById("participantAge").value
+                );
+
+                // Validasi input
+                if (!name || isNaN(age) || age <= 0) {
+                    alert("Harap masukkan nama dan umur yang valid!");
+                    return;
+                }
+
+                // Menambahkan peserta ke dalam array
+                participants.push({ name, age });
+
+                // Membersihkan input
+                document.getElementById("participantName").value = "";
+                document.getElementById("participantAge").value = "";
+
+                // Update tampilan daftar peserta
+                displayParticipants();
+            }
+
+            // Fungsi untuk menampilkan daftar peserta
+            function displayParticipants() {
+                const participantList =
+                    document.getElementById("participantList");
+
+                // Kosongkan daftar sebelumnya
+                participantList.innerHTML = "";
+
+                // Menggunakan perulangan untuk menampilkan setiap peserta
+                participants.forEach((participant, index) => {
+                    const listItem = document.createElement("li");
+
+                    // Percabangan untuk memberi pesan tambahan sesuai umur
+                    let ageCategory = "";
+                    if (participant.age < 18) {
+                        ageCategory = " (Anak-anak)";
+                    } else if (participant.age < 60) {
+                        ageCategory = " (Dewasa)";
+                    } else {
+                        ageCategory = " (Lansia)";
+                    }
+
+                    listItem.textContent = `${index + 1}. ${
+                        participant.name
+                    } - ${participant.age} tahun${ageCategory}`;
+                    participantList.appendChild(listItem);
+                });
+            }
+        </script>
+    </body>
+</html>
